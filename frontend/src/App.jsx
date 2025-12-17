@@ -25,6 +25,7 @@ function App() {
   const guardarPlato = async (e) => {
     e.preventDefault()
     if(!form.nombre || !form.precio) return alert("Por favor llena nombre y precio")
+      
 
     // Usamos FormData para poder enviar archivos + texto
     const datos = new FormData()
@@ -124,7 +125,14 @@ function App() {
             type="text" 
             placeholder="Nombre del plato" 
             value={form.nombre}
-            onChange={e => setForm({...form, nombre: e.target.value})} 
+            onChange={e => {
+              const valor = e.target.value
+              
+              if (valor === '' || /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/.test(valor)) {
+                setForm({...form, nombre: valor})
+              }
+             
+            }}  
         />
         
         <input 
